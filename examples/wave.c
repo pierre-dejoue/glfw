@@ -360,6 +360,19 @@ void scroll_callback(GLFWwindow* window, double x, double y)
 
 
 //========================================================================
+// Callback function for touchpad zoom events
+//========================================================================
+
+void zoom_callback(GLFWwindow* window, double scale)
+{
+    if (scale > 0)
+        zoom /= scale;
+    if (zoom < 0)
+        zoom = 0;
+}
+
+
+//========================================================================
 // Callback function for framebuffer resize events
 //========================================================================
 
@@ -411,6 +424,7 @@ int main(int argc, char* argv[])
     glfwSetMouseButtonCallback(window, mouse_button_callback);
     glfwSetCursorPosCallback(window, cursor_position_callback);
     glfwSetScrollCallback(window, scroll_callback);
+    glfwSetTrackpadZoomCallback(window, zoom_callback);
 
     glfwMakeContextCurrent(window);
     gladLoadGL(glfwGetProcAddress);
